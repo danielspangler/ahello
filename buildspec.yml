@@ -1,0 +1,20 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+        dotnet: 3.1
+  pre_build:
+    commands:
+      - echo Restore started on `date`
+      - dotnet restore AHello.csproj
+      - echo Test started on `date`
+      - dotnet test
+      - echo Clean started on `date`
+      - dotnet clean
+  build:
+    commands:
+      - echo Build started on `date`
+      - dotnet publish -c release -o ./out AHello.csproj
+artifacts:
+  files:
+    - out/**/*
