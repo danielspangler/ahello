@@ -7,4 +7,10 @@ public class testclass {
         Assert.Equal(true, true);
     }
 
+    [Fact]
+    public void failingtest() {
+        Assert.Equal(false, true);
+    }
+
+
 }
