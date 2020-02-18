@@ -9,12 +9,17 @@ phases:
       - dotnet restore AHello.csproj
       - echo Test started on `date`
       - dotnet test
-      - echo Clean started on `date`
-      - dotnet clean
+      - echo logging in to AWS ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)      
   build:
     commands:
       - echo Build started on `date`
       - dotnet publish -c release -o ./out AHello.csproj
-artifacts:
-  files:
-    - out/**/*
+      - echo build Docker image on `date`
+      - docker build -t AHello:latest .
+      - docker tag aHello:latest 808662307749.dkr.ecr.us-east-1.amazonaws.com/daniel.spangler/AHello:latestartifacts:
+  post_build:
+    commands:
+      - echo build Docker image complete `date`
+      - echo push latest Docker images to ECR...
+      - docker push 808662307749.dkr.ecr.us-east-1.amazonaws.com/daniel.spangler/AHello:latest
