@@ -17,9 +17,9 @@ phases:
       - dotnet publish -c release -o ./out AHello.csproj
       - echo build Docker image on `date`
       - docker build -t ahello:latest .
-      - docker tag ahello:latest 808662307749.dkr.ecr.us-east-1.amazonaws.com/daniel.spangler/ahello:latest
+      - docker tag ahello:latest 808662307749.dkr.ecr.us-east-1.amazonaws.com/ahello:latest
   post_build:
     commands:
       - echo build Docker image complete `date`
       - echo push latest Docker images to ECR...
-      - docker push 808662307749.dkr.ecr.us-east-1.amazonaws.com/daniel.spangler/ahello:latest
+      - docker push 808662307749.dkr.ecr.us-east-1.amazonaws.com/ahello:latest
